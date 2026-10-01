@@ -1,0 +1,32 @@
+/*
+ * 헤더 높이 = 위 여백(--header-pt) + 바(--header-bar) + 아래 여백(--header-pb)  (globals.css 토큰)
+ * 맨 위에서는 시안 위치 그대로, 스크롤 후에는 위 여백만큼 끌어올려 위아래 여백이 같은 컴팩트 바가 된다.
+ */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition:
+    translate 0.3s var(--ease-out-expo),
+    background-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.header[data-state="shown"],
+.header[data-state="hidden"] {
+  translate: 0 calc(var(--header-pb) - var(--header-pt));
+  background-color: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-header);
+}
+
+/* 모바일 메뉴가 열려 있거나 키보드 포커스가 헤더 안에 있으면 숨기지 않는다 */
+.header[data-state="hidden"]:not(:has([aria-expanded="true"], :focus-visible)) {
+  translate: 0 -100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    transition: none;
+  }
+}

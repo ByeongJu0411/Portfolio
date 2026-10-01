@@ -33,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="ko"
       className={`${bricolage.variable} ${plexKr.variable} ${jetbrains.variable} antialiased`}
     >
-      <body className="bg-dots min-h-svh">
+      <body id="top" className="bg-dots min-h-svh">
         <SiteHeader />
         <main>{children}</main>
       </body>

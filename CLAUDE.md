@@ -5,10 +5,13 @@
 프론트엔드 개발자 포트폴리오 사이트. 이 사이트 자체가 실력 증명이므로 **완성도, 성능, 접근성**을 화려함보다 우선한다.
 
 - 기술 스택: Next.js 16 (App Router, `src/app`) / React 19 / TypeScript / Tailwind CSS v4 (`@tailwindcss/postcss`)
-- 페이지: Home(`/`) · About(`/about`) · Projects(`/projects`) · Skills(`/skills`) · Contact(`/contact`) — 각각 별도 라우트. 메뉴·링크 정의는 `src/lib/site.ts`. 현재 명세는 **Home 히어로**까지.
+- 페이지: 원페이지 구성. Home(`/`)에 히어로 → About(`#about`) → Projects(`#projects`) → Skills(`#skills`) → Contact(`#contact`) 섹션을 쌓는다. Projects·Skills·Contact는 아직 `PlaceholderSection`(TODO). 메뉴·링크 정의는 `src/lib/site.ts`.
+- 헤더: sticky. 맨 위에서는 시안 그대로(투명), 스크롤 후에는 반투명 컴팩트 바. 아래로 스크롤하면 숨고 위로 올리면 나타난다(`AutoHideHeader`). 모바일 메뉴가 열려 있거나 키보드 포커스가 헤더 안에 있으면 숨기지 않는다.
+- 메뉴의 `#섹션` 링크는 CSS `scroll-behavior: smooth`로 이동(reduced-motion이면 즉시).
 - 디자인 원본: Figma [TODO: 링크 기입]
 - 기준 해상도: Desktop 1440×900, Mobile 390×844
 - 브레이크포인트: Mobile `< 768px`, Desktop `≥ 768px` (Tailwind `md:`). 모바일 우선으로 작성하고 `md:`로 데스크톱을 덮어쓴다.
+  - 예외: About 섹션은 사진 2열·폴더 3열이 들어갈 폭이 필요해 `lg:`(1024px)에서 데스크톱 배치로 전환한다.
 
 ## 명령어
 
@@ -33,6 +36,7 @@ npm run lint    # ESLint
   - 간격은 Tailwind 기본 spacing 스케일(0.25rem 단위, 예: `gap-4.5` = 18px)을 토큰으로 간주한다.
   - 브레이크포인트별로 바뀌는 값은 `globals.css`의 `:root` 변수(`--fs-*`, `--page-gutter` 등)로 두고 `@theme inline`에서 연결한다.
 - 디자인의 px 값은 1440 기준 시안 값이다. 구현은 좌표 복사가 아니라 **flex/grid + clamp() 기반 반응형**으로 한다. 겹침이 필요한 장식 레이어(캐릭터·스티커·반짝이)만 섹션 기준 `absolute`를 쓰되, 위치는 %·clamp()로 잡는다.
+- 한글 본문은 `word-break: keep-all`(body 전역). 시안과 줄바꿈을 맞춰야 하는 제목만 예외로 `break-normal`.
 - 시맨틱 마크업: 링크는 `<a href>`(내부 이동은 `next/link`), 동작은 `<button>`. div에 onClick 금지. 아이콘 전용 버튼은 `aria-label` 필수.
 - 모든 애니메이션은 `prefers-reduced-motion: reduce`에서 꺼지거나 즉시 완료되어야 한다 (Tailwind `motion-safe:` / `motion-reduce:` 활용).
 - 이미지는 `alt` 필수(장식 이미지는 `alt=""`). LCP 이미지(히어로 캐릭터)는 우선 로드하고 크기를 명시해 레이아웃 이동(CLS)을 막는다.
@@ -208,7 +212,51 @@ npm run lint    # ESLint
 
 ---
 
-## 6. 인터랙션 계획
+## 6. About 섹션 명세 (Home, 히어로 바로 아래)
+
+참고 시안(로컬 전용, 커밋하지 않음): `design/about-desktop.reference.html`, `design/about-mobile.reference.html` — 폴더 동작이 vanilla JS로 들어 있음. 동작 확인용이며 구현은 React 상태로 한다.
+
+### 콘텐츠
+| 요소 | 내용 |
+|---|---|
+| 섹션 라벨 | `<About />` (mono) + 가로선 64px |
+| 대표 문장 `<h2>` | 사용자가 **멈칫하지 않는 화면**을 만드는 / 프론트엔드 개발자 전병주입니다 — "멈칫하지 않는 화면"에 포인트 컬러 형광펜 밑줄 (`linear-gradient(transparent 60%, var(--color-accent) 60%)`) |
+| 증명사진 | `public/images/profile.jpg` (EXIF 제거). 원본 비율(7:9) 그대로 표시해 잘리지 않게 — 데스크톱 폭 300px(≈300×386, 모바일도 최대 300px), radius 20px. `src/data/about.ts`의 `PROFILE_PHOTO`가 null이면 3:4 placeholder |
+| 소개글 3단락 | 1) 개발 태도 2) 티밍 3) ZZAZO + 현재 큐시즘 — 문구는 시안 그대로 사용 |
+| 연락처 (항상 노출) | 소개글 아래, 상단 구분선 + 아이콘 3개: 010-9165-7205 (`tel:`), wjsqudwn981789@gmail.com (`mailto:`), 인천광역시 남동구 담방로 21번길 24 |
+
+### 폴더 3개 (EDUCATION · ACTIVITIES · AWARDS)
+| 폴더 | 번호 | 부제 | 서류 파일명 | 서류 내용 |
+|---|---|---|---|---|
+| EDUCATION | 01 | 학력 · 전공 학점 | education.md | 성공회대학교 IT융합자율학부 · SW / 컴퓨터공학 전공, 2021 – 2027.02 졸업 예정, 전공 학점 SW 4.30 · 컴퓨터공학 4.25 (/ 4.5, 큰 숫자) |
+| ACTIVITIES | 02 | 대외 활동 4건 | activities.md | 제목 + 기간만 (최신순): KUSITMS(큐시즘) 34기 2026.08.15 – ing / Leets · IT 창업 동아리 (가천대학교) 2026.07.01 – 2026.08.06 / 성공회대학교 제16회 IT 경진대회 2025.09.14 – 2025.10.24 / GDG on Campus SKHU 3기 2024.09.12 – 2025.06.19 |
+| AWARDS | 03 | 수상 3건 | awards.md | 2025 은상 · 인기상 (성공회대학교 제16회 IT 경진대회) / 2025 장려상 (성공회대학교 창업 아이디어 경진대회) / 2025 최우수 창업동아리 선정 (GoodWin Incubating) |
+
+- 콘텐츠 데이터(학력·활동·수상·연락처)는 컴포넌트에 하드코딩하지 않고 데이터 파일로 분리해 map으로 렌더링한다.
+- 폴더 모양: 검정 뒷판 + 탭(폭 44%), 안에 흰 미니 서류(회색 줄 4개), 앞판은 포인트 컬러. 앞판에 번호·이름(mono)·부제.
+- 데스크톱 3열 grid gap 40px, 폴더 높이 230px / 모바일 3열 gap 10px, 높이 132px(부제 숨김).
+- 폴더 위에 안내 문구 `// 폴더를 눌러 서류를 꺼내보세요` (mono, `--color-text-sub`).
+
+### 폴더 인터랙션 (필수 동작)
+1. **초기 상태**: 전부 닫힘.
+2. **hover / focus-visible**: 미니 서류가 위로 살짝 나옴(translateY -30px), 앞판 `rotateX(-12deg)` (부모 perspective 900px, origin 하단).
+3. **클릭**: 해당 서류가 그 폴더 위치에서 `scale(.45)` → 원래 크기로 커지며 폴더 **위쪽으로** 올라와 사진·소개글 영역을 **일부만** 덮는다 (데스크톱 폭 880px 가운데 정렬·높이 460px / 모바일 좌우 10px·높이 420px). 페이지 높이는 변하지 않는다 (오버레이, 아래 콘텐츠 밀지 않음).
+4. 서류는 폴더보다 **뒤 레이어**(폴더 z-index 위)라서 폴더 뒤에서 뽑혀 나오는 느낌을 준다. 열린 폴더는 미니 서류가 사라지고 앞판 `rotateX(-20deg)` 유지.
+5. **다른 폴더 클릭**: 현재 서류는 즉시 들어가고, 새 서류는 0.18초 지연 후 나온다. 한 번에 하나만 열림. (닫힌 상태에서 처음 열 때는 지연 없음)
+6. **닫기**: 같은 폴더 재클릭, 서류의 X 버튼, `Esc` 키.
+7. 이징 `cubic-bezier(.2,.8,.2,1)`, 서류 0.36s / 폴더 0.32s.
+
+구현 메모: 닫힌 서류가 내려가는 정도는 데스크톱 75% / 모바일 55%. 모바일 폴더(132px)가 낮아 75%면 줄어든 서류가 폴더 아래로 삐져나온다. 서류는 각 폴더 버튼 바로 뒤 DOM에 두어 Tab 순서가 폴더 → 열린 서류 → 다음 폴더로 흐른다. X·Esc로 닫으면 포커스를 해당 폴더로 돌려준다.
+
+### 접근성 (필수)
+- 폴더는 `<button>` + `aria-expanded` + `aria-controls`, 서류는 `role="region"` + `aria-label`.
+- 닫힌 서류는 `visibility: hidden`(트랜지션 끝난 뒤 적용)으로 Tab 순서·스크린 리더에서 제외, `aria-hidden` 동기화. 내용은 DOM에 유지(SEO).
+- X 버튼은 `aria-label="서류 닫기"`, 터치 타깃 40px 이상(모바일 44px).
+- `prefers-reduced-motion: reduce`이면 트랜지션 없이 즉시 전환.
+
+---
+
+## 7. 인터랙션 계획
 
 우선순위 순. 각 항목은 reduced-motion 대응 필수.
 

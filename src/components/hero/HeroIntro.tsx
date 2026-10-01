@@ -24,7 +24,7 @@ export function HeroIntro() {
       </p>
 
       <div className="flex gap-2.5 md:mt-1.5 md:gap-3">
-        <ButtonLink href="/projects" className="flex-1 md:flex-none md:px-6.5">
+        <ButtonLink href="/#projects" className="flex-1 md:flex-none md:px-6.5">
           프로젝트 보기
           <ArrowRightIcon className="hidden md:block" />
         </ButtonLink>

@@ -64,7 +64,7 @@ export function MobileMenu() {
         ref={panelRef}
         id={panelId}
         hidden={!open}
-        className="absolute inset-x-(--page-gutter) top-full mt-3 rounded-button border-(length:--border-width) border-text bg-bg p-2"
+        className="absolute inset-x-(--page-gutter) top-full rounded-button border-(length:--border-width) border-text bg-bg p-2"
       >
         <nav aria-label="모바일 메뉴">
           <ul className="flex flex-col">
