@@ -1,3 +1,5 @@
+import { DISPLAY_TITLE } from "@/components/ui/displayTitle";
+
 /** 레이어 2 — 캐릭터 뒤에 깔리는 타이틀. 패럴랙스 대상이므로 단독 요소로 둔다. */
 export function HeroTitle() {
   return (
@@ -5,7 +7,7 @@ export function HeroTitle() {
       id="hero-title"
       // 글자 자체의 좌측 여백(side bearing)만큼 당겨 시안의 x 위치(72 / 16)에 맞춘다.
       // flex-col: 줄 래퍼의 음수 margin이 서로 상쇄(margin collapse)되지 않게 한다.
-      className="relative z-10 -ml-[0.032em] flex flex-col font-display text-hero font-extrabold"
+      className={`relative z-10 flex flex-col ${DISPLAY_TITLE}`}
     >
       <TitleLine animation="motion-safe:animate-hero-line-1">FRONT</TitleLine>
       <TitleLine animation="motion-safe:animate-hero-line-2">

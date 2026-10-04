@@ -19,6 +19,9 @@
   --color-paper: #ffffff;
   --color-paper-line: #e6e4dc;
   --color-placeholder: #eceae3;
+  --color-line: #dedcd4;
+  --color-chip-border: #d6d4cc;
+  --color-window-line: #eeece6;
 
   --radius-pill: 999px;
   --radius-sticker: 10px;
@@ -26,13 +29,18 @@
   --shadow-sticker: 0 2px 0 rgba(20, 20, 20, 0.25);
   --shadow-paper: 0 24px 48px rgba(20, 20, 20, 0.12);
   --shadow-header: 0 1px 0 rgba(20, 20, 20, 0.08);
+  --shadow-window: 0 18px 40px rgba(20, 20, 20, 0.1);
+  --shadow-dialog: 0 40px 80px rgba(0, 0, 0, 0.25);
+  --shadow-case: 0 10px 30px rgba(20, 20, 20, 0.06);
+  --shadow-close: 0 4px 12px rgba(20, 20, 20, 0.12);
 
   --container-page: 1440px;
   --container-hero-text: 560px;
-  --container-about-text: 760px;
   --container-about-photo: 300px;
+  --container-contact-actions: 480px;
+  --container-contact-body: 620px;
 
-  /* ─── 히어로 진입 애니메이션 (CLAUDE.md 7장 1번, 전체 0.8초 이내) ───
+  /* ─── 히어로 진입 애니메이션 (CLAUDE.md 11장 1번, 전체 0.8초 이내) ───
    * keyframes는 from만 정의해 요소 자신의 최종 값(rotate 등)으로 돌아가게 한다.
    * transform 대신 translate/scale/rotate 개별 속성을 써서 나중에 패럴랙스(transform)와 겹치지 않게 한다.
    * 사용처는 반드시 motion-safe: 접두사로 감싼다. */
@@ -49,6 +57,12 @@
   --animate-hero-sticker: hero-sticker 250ms var(--ease-back-out) 550ms both;
   --animate-hero-sparkle: hero-sparkle 250ms var(--ease-back-out) 550ms both;
   --animate-hero-sparkle-late: hero-sparkle 200ms var(--ease-back-out) 600ms both;
+
+  --animate-toast-in: toast-in 0.25s var(--ease-out-expo) both;
+
+  @keyframes toast-in {
+    from { opacity: 0; translate: 0 12px; }
+  }
 
   @keyframes hero-fade {
     from { opacity: 0; }
@@ -121,6 +135,59 @@
   --paper-radius: 8px;
   --about-photo-width: 100%;
   --about-grid-gap: clamp(40px, 6.7vw, 96px);
+
+  /* Projects (CLAUDE.md 7장) — 이미지·정보 2열이 들어갈 폭이 필요해 lg에서 전환 */
+  --tint-zzazo: #eae6dc;
+  --tint-skhu-box: #e9e3e5;
+  --tint-teaming: #e2e6ec;
+  --tint-portfolio: #e3e8e2;
+  --tint-graverty: #dfe5ea;
+  --fs-project-name: 28px;
+  --fs-project-tagline: 15px;
+  --fs-project-meta: 14px;
+  --fs-project-period: 13px;
+  --fs-project-index: 12px;
+  --project-button-height: 46px;
+  --fs-chip: 12px;
+  --fs-button-sm: 14px;
+  --thumb-radius: 18px;
+  --window-radius: 10px;
+  --project-grid-gap: clamp(40px, 5vw, 72px);
+
+  /* Contact (CLAUDE.md 10장) — 제목·본문은 히어로처럼 화면 폭에 비례 (1440에서 60 / 20px) */
+  --fs-contact-title: clamp(31px, 4.17vw, 60px);
+  --fs-contact-body: clamp(16px, 1.39vw, 20px);
+  --fs-contact-value: 15px;
+
+  /* Skills (CLAUDE.md 9장) */
+  --fs-skill-category: 18px;
+  --fs-skill-item: 15px;
+
+  /* 프로젝트 상세 모달 (CLAUDE.md 8장) — 명세대로 640px(sm)에서 전체 화면 ↔ 가운데 모달 전환 */
+  --color-dim: rgba(20, 20, 20, 0.68);
+  --fs-detail-name: 36px;
+  --fs-detail-tagline: 16px;
+  --fs-detail-section: 19px;
+  --fs-detail-contrib: 15px;
+  --fs-detail-meta: 14px;
+  --fs-case-title: 16px;
+  --fs-case-text: 14px;
+  --fs-quote: 15px;
+  --detail-band-height: 200px;
+}
+
+@media (width >= 40rem) {
+  :root {
+    --fs-detail-name: 52px;
+    --fs-detail-tagline: 19px;
+    --fs-detail-section: 22px;
+    --fs-detail-contrib: 16px;
+    --fs-detail-meta: 15px;
+    --fs-case-title: 18px;
+    --fs-case-text: 15px;
+    --fs-quote: 17px;
+    --detail-band-height: 280px;
+  }
 }
 
 @media (width >= 48rem) {
@@ -153,12 +220,27 @@
     --fs-doc-body: 17px;
     --fs-score: 48px;
     --fs-folder-num: 13px;
-    --fs-folder-name: 20px;
+    --fs-folder-name: clamp(14px, 1.39vw, 20px);
     --ls-folder-name: 0.08em;
     --photo-radius: 20px;
     --folder-radius: 16px;
     --paper-radius: 10px;
     --about-photo-width: clamp(220px, 20.8vw, 300px);
+
+    --fs-contact-value: 17px;
+    --fs-skill-category: 22px;
+    --fs-skill-item: 17px;
+
+    --fs-project-name: 40px;
+    --fs-project-tagline: 17px;
+    --fs-project-meta: 15px;
+    --fs-project-period: 14px;
+    --fs-project-index: 13px;
+    --project-button-height: 48px;
+    --fs-chip: 13px;
+    --fs-button-sm: 15px;
+    --thumb-radius: 24px;
+    --window-radius: 14px;
   }
 }
 
@@ -215,7 +297,67 @@
   --text-folder-name--line-height: 1.2;
   --text-folder-name--letter-spacing: var(--ls-folder-name);
 
+  --text-contact-title: var(--fs-contact-title);
+  --text-contact-title--line-height: 1.25;
+  --text-contact-title--letter-spacing: -0.04em;
+  --text-contact-body: var(--fs-contact-body);
+  --text-contact-body--line-height: 1.8;
+  --text-contact-value: var(--fs-contact-value);
+
+  --text-skill-category: var(--fs-skill-category);
+  --text-skill-category--line-height: 1.3;
+  --text-skill-category--letter-spacing: -0.02em;
+  --text-skill-item: var(--fs-skill-item);
+  --text-skill-item--line-height: 1.5;
+
+  --text-project-name: var(--fs-project-name);
+  --text-project-name--line-height: 1.15;
+  --text-project-name--letter-spacing: -0.03em;
+  --text-project-tagline: var(--fs-project-tagline);
+  --text-project-tagline--line-height: 1.65;
+  --text-project-meta: var(--fs-project-meta);
+  --text-project-meta--line-height: 1.5;
+  --text-project-period: var(--fs-project-period);
+  --text-project-period--line-height: 1.5;
+  --text-project-index: var(--fs-project-index);
+  --text-project-index--line-height: 1;
+  --text-label: 12px;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.1em;
+  --text-chip: var(--fs-chip);
+  --text-chip--line-height: 1;
+  --text-button-sm: var(--fs-button-sm);
+  --text-button-sm--line-height: 1;
+
+  --text-detail-name: var(--fs-detail-name);
+  --text-detail-name--line-height: 1.1;
+  --text-detail-name--letter-spacing: -0.035em;
+  --text-detail-tagline: var(--fs-detail-tagline);
+  --text-detail-tagline--line-height: 1.55;
+  --text-detail-section: var(--fs-detail-section);
+  --text-detail-section--line-height: 1.3;
+  --text-detail-section--letter-spacing: -0.02em;
+  --text-detail-contrib: var(--fs-detail-contrib);
+  --text-detail-contrib--line-height: 1.65;
+  --text-detail-meta: var(--fs-detail-meta);
+  --text-detail-meta--line-height: 1.5;
+  --text-case-title: var(--fs-case-title);
+  --text-case-title--line-height: 1.4;
+  --text-case-title--letter-spacing: -0.02em;
+  --text-case-text: var(--fs-case-text);
+  --text-case-text--line-height: 1.75;
+  --text-quote: var(--fs-quote);
+  --text-quote--line-height: 1.7;
+  --text-stat: 40px;
+  --text-stat--line-height: 1;
+  --text-stat--letter-spacing: -0.03em;
+  --text-contribution: 22px;
+  --text-contribution--line-height: 1.2;
+  --text-contribution--letter-spacing: -0.02em;
+
   --radius-button: var(--button-radius);
+  --radius-thumb: var(--thumb-radius);
+  --radius-window: var(--window-radius);
   --radius-photo: var(--photo-radius);
   --radius-folder: var(--folder-radius);
   --radius-paper: var(--paper-radius);

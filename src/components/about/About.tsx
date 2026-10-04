@@ -2,6 +2,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { AboutIntro } from "./AboutIntro";
 import { ActivitiesDoc } from "./docs/ActivitiesDoc";
 import { AwardsDoc } from "./docs/AwardsDoc";
+import { CertificatesDoc } from "./docs/CertificatesDoc";
 import { EducationDoc } from "./docs/EducationDoc";
 import { FolderCabinet } from "./FolderCabinet";
 import { ProfilePhoto } from "./ProfilePhoto";
@@ -11,7 +12,8 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-title"
-      className="mx-auto max-w-page px-(--page-gutter) py-18 lg:py-30"
+      // overflow-x-clip: 맨 오른쪽 폴더 뒤에 숨은(축소된) 서류가 좁은 화면에서 가로 스크롤을 만들지 않게
+      className="mx-auto max-w-page overflow-x-clip px-(--page-gutter) py-18 lg:py-30"
     >
       <SectionLabel>&lt;About /&gt;</SectionLabel>
 
@@ -37,6 +39,7 @@ export function About() {
             education: <EducationDoc />,
             activities: <ActivitiesDoc />,
             awards: <AwardsDoc />,
+            certificates: <CertificatesDoc />,
           }}
         />
       </div>

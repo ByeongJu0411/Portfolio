@@ -1,16 +1,17 @@
 import { About } from "@/components/about/About";
+import { Contact } from "@/components/contact/Contact";
 import { Hero } from "@/components/hero/Hero";
-import { PlaceholderSection } from "@/components/sections/PlaceholderSection";
+import { Projects } from "@/components/projects/Projects";
+import { Skills } from "@/components/skills/Skills";
 
 export default function Home() {
   return (
     <>
       <Hero />
       <About />
-      {/* TODO: 섹션 구현 시 교체 */}
-      <PlaceholderSection id="projects" label="Projects" />
-      <PlaceholderSection id="skills" label="Skills" />
-      <PlaceholderSection id="contact" label="Contact" />
+      <Projects />
+      <Skills />
+      <Contact />
     </>
   );
 }

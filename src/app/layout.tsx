@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, IBM_Plex_Sans_KR, JetBrains_Mono } from "next/font/google";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { Toaster } from "@/components/ui/Toast";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -14,6 +16,9 @@ const plexKr = IBM_Plex_Sans_KR({
   variable: "--font-plex-kr",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
+  // 한글은 unicode-range로 쪼갠 파일이 굵기마다 수십 개라, preload하면 쓰지 않는 글자까지
+  // 189개(약 1.8MB)를 한꺼번에 받는다. 끄면 브라우저가 화면에 쓰인 글자 범위만 받는다.
+  preload: false,
 });
 
 const jetbrains = JetBrains_Mono({
@@ -36,6 +41,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body id="top" className="bg-dots min-h-svh">
         <SiteHeader />
         <main>{children}</main>
+        <SiteFooter />
+        <Toaster />
       </body>
     </html>
   );

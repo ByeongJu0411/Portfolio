@@ -9,20 +9,7 @@ export const PROFILE_PHOTO: { src: StaticImageData; alt: string } | null = {
   alt: "정장을 입은 전병주의 증명사진",
 };
 
-/* ─── 연락처 ───────────────────────────────────────────── */
-export type ContactKind = "phone" | "email" | "address";
-
-export type Contact = {
-  kind: ContactKind;
-  label: string;
-  href?: string;
-};
-
-export const CONTACTS: Contact[] = [
-  { kind: "phone", label: "010-9165-7205", href: "tel:010-9165-7205" },
-  { kind: "email", label: "wjsqudwn981789@gmail.com", href: "mailto:wjsqudwn981789@gmail.com" },
-  { kind: "address", label: "인천광역시 남동구 담방로 21번길 24" },
-];
+/* 연락처는 src/data/contacts.ts (Contact 섹션과 공유) */
 
 /* ─── 학력 ─────────────────────────────────────────────── */
 export const EDUCATION = {
@@ -30,8 +17,8 @@ export const EDUCATION = {
   major: "IT융합자율학부 · SW / 컴퓨터공학 전공",
   period: "2021 – 2027.02 졸업 예정",
   scores: [
-    { label: "SW 전공 학점", value: "4.30", max: "4.5" },
-    { label: "컴퓨터공학 전공 학점", value: "4.25", max: "4.5" },
+    { label: "SW 전공 학점", value: "3.83", max: "4.5" },
+    { label: "컴퓨터공학 전공 학점", value: "4.20", max: "4.5" },
   ],
 };
 
@@ -59,12 +46,22 @@ export type Award = {
 
 export const AWARDS: Award[] = [
   { year: "2025", title: "은상 · 인기상", organizer: "성공회대학교 제16회 IT 경진대회" },
-  { year: "2025", title: "장려상", organizer: "성공회대학교 창업 아이디어 경진대회" },
   { year: "2025", title: "최우수 창업동아리 선정", organizer: "GoodWin Incubating" },
 ];
 
+/* ─── 자격증 ───────────────────────────────────────────── */
+export type Certificate = {
+  /** 취득일 "YYYY.MM" */
+  date: string;
+  name: string;
+  issuer: string;
+};
+
+/** TODO: 자격증을 취득하면 여기에 추가한다 (예: { date: "2026.11", name: "정보처리기사", issuer: "한국산업인력공단" }) */
+export const CERTIFICATES: Certificate[] = [];
+
 /* ─── 폴더 ─────────────────────────────────────────────── */
-export type FolderId = "education" | "activities" | "awards";
+export type FolderId = "education" | "activities" | "awards" | "certificates";
 
 export type FolderMeta = {
   id: FolderId;
@@ -101,5 +98,13 @@ export const FOLDERS: FolderMeta[] = [
     subtitle: `수상 ${AWARDS.length}건`,
     fileName: "awards.md",
     docTitle: "수상",
+  },
+  {
+    id: "certificates",
+    number: "04",
+    name: "CERTIFICATES",
+    subtitle: CERTIFICATES.length > 0 ? `자격증 ${CERTIFICATES.length}건` : "자격증 · 준비 중",
+    fileName: "certificates.md",
+    docTitle: "자격증",
   },
 ];

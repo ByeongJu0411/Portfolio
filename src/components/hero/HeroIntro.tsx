@@ -1,5 +1,6 @@
 import { ArrowRightIcon, CodeIcon } from "@/components/icons";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { ButtonLink, buttonClasses } from "@/components/ui/ButtonLink";
+import { ResumeLink } from "@/components/ui/ResumeLink";
 import { Chip } from "@/components/ui/Chip";
 import { SITE } from "@/lib/site";
 
@@ -32,9 +33,9 @@ export function HeroIntro() {
           <CodeIcon size={18} />
           GitHub
         </ButtonLink>
-        <ButtonLink href={SITE.resumeUrl} variant="outline" showOn="mobile" className="px-4.5">
+        <ResumeLink className={buttonClasses({ variant: "outline", showOn: "mobile", className: "px-4.5" })}>
           이력서
-        </ButtonLink>
+        </ResumeLink>
       </div>
     </div>
   );

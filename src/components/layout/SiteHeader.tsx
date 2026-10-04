@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@/components/icons";
+import { ResumeLink } from "@/components/ui/ResumeLink";
 import { NAV_ITEMS, SITE } from "@/lib/site";
 import { AutoHideHeader } from "./AutoHideHeader";
 import { MobileMenu } from "./MobileMenu";
@@ -27,16 +28,10 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <a
-            href={SITE.resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden h-11 items-center gap-2 rounded-pill border-(length:--border-width) border-text px-5 text-body font-medium hover:border-link-hover hover:text-link-hover md:inline-flex"
-          >
+          <ResumeLink className="hidden h-11 items-center gap-2 rounded-pill border-(length:--border-width) border-text px-5 text-body font-medium hover:border-link-hover hover:text-link-hover md:inline-flex">
             이력서
             <ArrowUpRightIcon size={14} />
-            <span className="sr-only">(새 창)</span>
-          </a>
+          </ResumeLink>
 
           <MobileMenu />
         </div>

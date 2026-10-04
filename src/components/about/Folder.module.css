@@ -32,6 +32,8 @@
   /* 닫힌 서류가 내려가는 정도. 45%로 줄어든 서류의 아래끝이 폴더 높이 안에 숨도록
      폴더 높이에 맞춘 값 (모바일 폴더가 낮아 75%면 폴더 아래로 삐져나온다) */
   --doc-drop: 55%;
+  /* 모바일 2×2 (4열이면 폴더가 80px로 좁아져 이름이 들어가지 않음) */
+  --folder-cols: 2;
 
   --folder-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --folder-duration: 0.32s;
@@ -64,6 +66,7 @@
     --arrow-icon: 16px;
     --doc-height: 460px;
     --doc-drop: 75%;
+    --folder-cols: 4;
   }
 }
 
@@ -72,10 +75,10 @@
   position: relative;
   z-index: 2; /* 서류(z-1)보다 위 — 서류가 폴더 뒤에서 뽑혀 나오는 느낌 */
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--folder-cols), minmax(0, 1fr));
   gap: var(--folder-gap);
   /* 폴더 폭 상한. grid 자체를 줄여야 서류 출발 위치(cqw 계산)도 폴더 중심에 맞는다 */
-  max-width: calc(var(--folder-max-width, 100%) * 3 + var(--folder-gap) * 2);
+  max-width: calc(var(--folder-max-width, 100%) * var(--folder-cols) + var(--folder-gap) * (var(--folder-cols) - 1));
   margin-inline: auto;
 }
 
@@ -255,8 +258,13 @@
 /* ─── 서류 ────────────────────────────────────────────────
  * grid 위쪽 가장자리(bottom: 100%)에 붙어 위로 오버레이 — 페이지 높이를 늘리지 않는다.
  * z-index 1로 폴더(z-2) 뒤에 있어 폴더 뒤에서 뽑혀 나오는 것처럼 보인다.
- * 닫힌 상태: 자기 폴더 중심 위치(--doc-index: -1/0/1 × 열 간격)에서 45% 크기로 폴더 뒤에 숨어 있다. */
+ * 닫힌 상태: 자기 폴더 중심 위치에서 45% 크기로 폴더 뒤에 숨어 있다.
+ *   가로: 열 간격((grid 폭 + gap) / 열 수) × (열 번호 − 가운데 열)
+ *   세로: --doc-drop + 행 번호 × (폴더 높이 + gap) — 모바일 2행째 폴더도 자기 뒤에서 나온다 */
 .doc {
+  /* 열·행 번호는 각 서류에 inline으로 들어온다 (변수는 선언된 요소에서 계산되므로 여기서 고른다) */
+  --doc-col: var(--doc-col-mobile, 0);
+  --doc-row: var(--doc-row-mobile, 0);
   position: absolute;
   z-index: 1;
   bottom: 100%;
@@ -267,12 +275,23 @@
   height: var(--doc-height);
   opacity: 0;
   visibility: hidden;
-  transform: translate(calc((100cqw + var(--folder-gap)) / 3 * var(--doc-index)), var(--doc-drop)) scale(0.45);
+  transform: translate(
+      calc((100cqw + var(--folder-gap)) / var(--folder-cols) * (var(--doc-col) - (var(--folder-cols) - 1) / 2)),
+      calc(var(--doc-drop) + var(--doc-row) * (var(--folder-height) + var(--folder-gap)))
+    )
+    scale(0.45);
   /* 닫힐 때: 즉시 들어가고, 트랜지션이 끝난 뒤 visibility: hidden (Tab·스크린 리더에서 제외) */
   transition:
     transform var(--doc-duration) var(--folder-ease),
     opacity 0.2s,
     visibility 0s linear var(--doc-duration);
+}
+
+@media (width >= 64rem) {
+  .doc {
+    --doc-col: var(--doc-col-desktop, 0);
+    --doc-row: 0;
+  }
 }
 
 .doc[data-open] {

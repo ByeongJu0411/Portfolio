@@ -119,3 +119,34 @@ export function UserIcon(props: IconProps) {
     </StrokeIcon>
   );
 }
+
+export function LinkedInIcon(props: IconProps) {
+  return (
+    <StrokeIcon strokeWidth={1.8} {...props}>
+      <rect x="3" y="4" width="18" height="16" rx="3" />
+      <circle cx="9" cy="11" r="2.5" />
+      <path d="M5.5 17c.8-1.8 2-2.6 3.5-2.6s2.7.8 3.5 2.6" />
+      <path d="M15 10h3" />
+      <path d="M15 14h3" />
+    </StrokeIcon>
+  );
+}
+
+export function ArrowUpIcon(props: IconProps) {
+  return (
+    <StrokeIcon strokeWidth={2} {...props}>
+      <path d="M12 19V5" />
+      <path d="M6 11l6-6 6 6" />
+    </StrokeIcon>
+  );
+}
+
+export function GlobeIcon(props: IconProps) {
+  return (
+    <StrokeIcon strokeWidth={1.8} {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18" />
+      <path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z" />
+    </StrokeIcon>
+  );
+}

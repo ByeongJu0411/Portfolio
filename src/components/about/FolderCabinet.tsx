@@ -73,7 +73,14 @@ export function FolderCabinet({ docs }: FolderCabinetProps) {
                 data-open={open || undefined}
                 data-switching={(open && state.switching) || undefined}
                 className={styles.doc}
-                style={{ "--doc-index": index - 1 } as CSSProperties}
+                // 닫힌 서류의 출발 위치(자기 폴더 뒤) — 모바일 2×2, 데스크톱 4열 기준 열·행
+                style={
+                  {
+                    "--doc-col-mobile": index % 2,
+                    "--doc-row-mobile": Math.floor(index / 2),
+                    "--doc-col-desktop": index,
+                  } as CSSProperties
+                }
               >
                 <DocSheet folder={folder} onClose={() => closeAndRestoreFocus(folder.id)}>
                   {docs[folder.id]}

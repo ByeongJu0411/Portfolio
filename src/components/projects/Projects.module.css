@@ -1,0 +1,57 @@
+/* Projects 카드 인터랙션 (CLAUDE.md 7장). 레이아웃·타이포는 Tailwind 토큰 유틸리티로, 상태 전환만 여기서. */
+.card {
+  --lift-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ─── 대표 이미지: 브라우저 창이 10px 떠오름 ───────────────
+ * 이미지 hover(마우스) + 자세히 보기 키보드 포커스 때 같은 반응을 준다.
+ * (이미지는 키보드 Tab 순서에서 빠질 예정이라 포커스 피드백을 버튼 쪽에서 연결) */
+.window {
+  transition: transform 0.45s var(--lift-ease);
+}
+
+@media (hover: hover) {
+  .thumb:hover .window {
+    transform: translateY(-10px);
+  }
+}
+
+.card:has(.detail:focus-visible) .window {
+  transform: translateY(-10px);
+}
+
+/* ─── 버튼 ─────────────────────────────────────────────── */
+.detail,
+.github {
+  transition:
+    transform 0.2s,
+    background-color 0.2s,
+    color 0.2s;
+}
+
+@media (hover: hover) {
+  .detail:hover {
+    transform: translateY(-2px);
+  }
+  .github:hover {
+    background-color: var(--color-text);
+    color: var(--color-on-dark);
+  }
+}
+
+.detail:focus-visible {
+  transform: translateY(-2px);
+}
+
+.github:focus-visible {
+  background-color: var(--color-text);
+  color: var(--color-on-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .window,
+  .detail,
+  .github {
+    transition: none;
+  }
+}

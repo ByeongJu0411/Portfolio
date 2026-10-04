@@ -1,0 +1,99 @@
+/* Contact 연락 버튼 (CLAUDE.md 10장). Mobile 값 → lg(1024)에서 Desktop 값. */
+.button {
+  --button-gap: 12px;
+  --button-height: 64px;
+  --button-padding: 0 18px 0 12px;
+  --button-radius: 16px;
+  --icon-size: 40px;
+
+  display: flex;
+  align-items: center;
+  gap: var(--button-gap);
+  height: var(--button-height);
+  padding: var(--button-padding);
+  border: var(--border-width) solid var(--color-text);
+  border-radius: var(--button-radius);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition:
+    background-color 0.25s,
+    color 0.25s,
+    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (width >= 64rem) {
+  .button {
+    --button-gap: 16px;
+    --button-height: 76px;
+    --button-padding: 0 24px 0 14px;
+    --button-radius: 18px;
+    --icon-size: 48px;
+  }
+}
+
+/* 대표 연락 수단(Email) — 검정 채움 + 포인트 컬러 원 */
+.primary {
+  background-color: var(--color-text);
+  color: var(--color-on-dark);
+}
+
+.icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  border-radius: 999px;
+  background-color: var(--color-text);
+  color: var(--color-on-dark);
+  transition:
+    background-color 0.25s,
+    color 0.25s;
+}
+.primary .icon {
+  background-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.arrow {
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* hover(마우스)와 focus-visible(키보드)에 같은 반응 */
+@media (hover: hover) {
+  .button:hover {
+    background-color: var(--color-text);
+    color: var(--color-on-dark);
+    transform: translateX(6px);
+  }
+  .button:hover .icon {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+  }
+  .button:hover .arrow {
+    transform: translate(3px, -3px);
+  }
+}
+.button:focus-visible {
+  background-color: var(--color-text);
+  color: var(--color-on-dark);
+  transform: translateX(6px);
+  outline-offset: 4px;
+}
+.button:focus-visible .icon {
+  background-color: var(--color-accent);
+  color: var(--color-text);
+}
+.button:focus-visible .arrow {
+  transform: translate(3px, -3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .icon,
+  .arrow {
+    transition: none;
+  }
+}

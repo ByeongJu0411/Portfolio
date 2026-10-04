@@ -17,6 +17,15 @@ const DISPLAY = {
   desktop: "hidden md:inline-flex",
 } as const;
 
+/** 버튼 모양 클래스 — 링크가 아닌 요소(예: ResumeLink의 button)도 같은 모양을 쓰도록 export */
+export function buttonClasses({
+  variant = "solid",
+  showOn = "always",
+  className = "",
+}: { variant?: Variant; showOn?: keyof typeof DISPLAY; className?: string } = {}) {
+  return `${BASE} ${DISPLAY[showOn]} ${VARIANTS[variant]} ${className}`;
+}
+
 type ButtonLinkProps = {
   href: string;
   variant?: Variant;
@@ -34,7 +43,7 @@ export function ButtonLink({
   className = "",
   children,
 }: ButtonLinkProps) {
-  const classes = `${BASE} ${DISPLAY[showOn]} ${VARIANTS[variant]} ${className}`;
+  const classes = buttonClasses({ variant, showOn, className });
 
   if (href.startsWith("http")) {
     return (

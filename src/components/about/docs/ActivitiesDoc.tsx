@@ -1,3 +1,4 @@
+import { OngoingBadge } from "@/components/ui/OngoingBadge";
 import { ACTIVITIES } from "@/data/about";
 
 export function ActivitiesDoc() {
@@ -11,13 +12,7 @@ export function ActivitiesDoc() {
           <span className="text-doc-item font-bold">{activity.title}</span>
           <span className="flex items-center gap-1 font-mono text-meta whitespace-nowrap text-text-sub">
             {activity.start} –{" "}
-            {activity.end ?? (
-              <span className="inline-flex items-center gap-1.5 font-bold text-text">
-                <span aria-hidden="true" className="size-1.75 rounded-full bg-accent" />
-                <span aria-hidden="true">ing</span>
-                <span className="sr-only">진행 중</span>
-              </span>
-            )}
+            {activity.end ?? <OngoingBadge />}
           </span>
         </li>
       ))}
