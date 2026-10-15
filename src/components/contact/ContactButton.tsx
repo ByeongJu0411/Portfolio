@@ -1,14 +1,12 @@
 import type { ComponentType, SVGProps } from "react";
-import { ArrowUpRightIcon, CodeIcon, LinkedInIcon, MailIcon, PhoneIcon, MapPinIcon } from "@/components/icons";
+import { ArrowUpRightIcon, CodeIcon, LinkedInIcon, MailIcon } from "@/components/icons";
 import type { ContactItem, ContactKind } from "@/data/contacts";
 import styles from "./Contact.module.css";
 
 const ICONS: Record<ContactKind, ComponentType<SVGProps<SVGSVGElement>>> = {
   email: MailIcon,
-  phone: PhoneIcon,
   linkedin: LinkedInIcon,
   github: CodeIcon,
-  address: MapPinIcon,
 };
 
 /** <a> 하나가 전체 클릭 영역 — 원형 아이콘 · 이름 · 값 · ↗ */

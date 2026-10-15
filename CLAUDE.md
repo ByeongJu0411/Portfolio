@@ -226,7 +226,7 @@ npm run lint    # ESLint
 | 대표 문장 `<h2>` | 사용자가 **멈칫하지 않는 화면**을 만드는 / 프론트엔드 개발자 전병주입니다 — "멈칫하지 않는 화면"에 포인트 컬러 형광펜 밑줄 (`linear-gradient(transparent 60%, var(--color-accent) 60%)`) |
 | 증명사진 | `public/images/profile.jpg` (EXIF 제거). 원본 비율(7:9) 그대로 표시해 잘리지 않게 — 데스크톱 폭 300px(≈300×386, 모바일도 최대 300px), radius 20px. `src/data/about.ts`의 `PROFILE_PHOTO`가 null이면 3:4 placeholder |
 | 소개글 3단락 | 1) 개발 태도 2) 문제 해결 사례(티밍 · Verty) 3) 팀 환경(ZZAZO · Verty) — 문구는 시안 그대로 사용 |
-| 연락처 (항상 노출) | 소개글 아래, 상단 구분선 + 아이콘 3개: 010-9165-7205 (`tel:`), wjsqudwn981789@gmail.com (`mailto:`), 인천광역시 남동구 담방로 21번길 24 |
+| 연락처 (항상 노출) | 소개글 아래, 상단 구분선 + 이메일 wjsqudwn981789@gmail.com (`mailto:`). 전화번호·주소는 개인정보 보호를 위해 공개하지 않는다 |
 
 ### 폴더 4개 (EDUCATION · ACTIVITIES · AWARDS · CERTIFICATES)
 | 폴더 | 번호 | 부제 | 서류 파일명 | 서류 내용 |
@@ -375,11 +375,10 @@ npm run lint    # ESLint
 | 장식 | 반짝이 2개 (노랑 44px, 검정 20px) — GROW. 오른쪽 위. 모바일은 노랑 1개 |
 | 푸터 | `맨 위로 ↑` · `© 2026 전병주` 줄은 사이트 푸터(`SiteFooter`)로 옮김 — Contact는 GROW.로 끝난다 |
 
-### 연락 버튼 4개 (이 순서)
+### 연락 버튼 3개 (이 순서) — 전화번호는 공개하지 않는다
 | 이름 | 표시 값 | href | 새 탭 |
 |---|---|---|---|
 | Email | wjsqudwn981789@gmail.com | `mailto:wjsqudwn981789@gmail.com` | — |
-| Phone | 010-9165-7205 | `tel:010-9165-7205` | — |
 | LinkedIn | 병주 전 | `https://www.linkedin.com/in/%EB%B3%91%EC%A3%BC-%EC%A0%84-964428440/` | O |
 | GitHub | ByeongJu0411 | `https://github.com/ByeongJu0411` | O |
 

@@ -1,19 +1,15 @@
 import type { ComponentType, SVGProps } from "react";
-import { MailIcon, MapPinIcon, PhoneIcon } from "@/components/icons";
+import { MailIcon } from "@/components/icons";
 import { ABOUT_CONTACTS } from "@/data/contacts";
 
-type AboutKind = "phone" | "email" | "address";
+type AboutKind = "email";
 
 const ICONS: Record<AboutKind, ComponentType<SVGProps<SVGSVGElement>>> = {
-  phone: PhoneIcon,
   email: MailIcon,
-  address: MapPinIcon,
 };
 
 const LABELS: Record<AboutKind, string> = {
-  phone: "전화",
   email: "이메일",
-  address: "주소",
 };
 
 export function ContactList() {
